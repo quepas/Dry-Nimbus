@@ -53,4 +53,32 @@ int main () {
   reme_options_set(context, main_options, "device_id", sstream.str().c_str());
   reme_context_compile(context);
   reme_context_print_errors(context);
+
+  reme_sensor_t sensor;
+  reme_sensor_create(context, "openni", true, &sensor);
+  reme_sensor_open(context, sensor);
+
+  reme_image_t image_aux, image_depth, image_volume;
+  reme_image_create(context, &image_aux);
+  reme_image_create(context, &image_depth);
+  reme_image_create(context, &image_volume);
+
+  reme_viewer_t viewer;
+  reme_viewer_create_image(context, "Image", &viewer);
+  reme_viewer_add_image(context, viewer, image_aux);
+  reme_viewer_add_image(context, viewer, image_depth);
+  reme_viewer_add_image(context, viewer, image_volume);
+
+  while (REME_SUCCESS(reme_sensor_grab(context, sensor))) {
+    if (REME_SUCCESS(reme_sensor_track_position(context, sensor))) {
+      reme_sensor_update_volume(context, sensor);
+    }
+    reme_sensor_prepare_images(context, sensor);
+    reme_sensor_get_image(context, sensor, REME_IMAGE_AUX, image_aux);
+    reme_sensor_get_image(context, sensor, REME_IMAGE_DEPTH, image_depth);
+    reme_sensor_get_image(context, sensor, REME_IMAGE_VOLUME, image_volume);
+    reme_viewer_update(context, viewer);
+  }
+  reme_context_print_errors(context);
+  reme_context_destroy(&context);
 }
