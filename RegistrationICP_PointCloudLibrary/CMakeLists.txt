@@ -1,0 +1,8 @@
+file (GLOB SOURCE_FILE_LIST src/*.cpp)
+file (GLOB HEADER_FILE_LIST src/*.h)
+
+include_directories(${BOOST_INC} ${PCL_INC} ${EIGEN_INC} ${FLANN_INC})
+link_directories(${BOOST_LIB} ${PCL_LIB} ${FLANN_LIB})
+
+add_executable(RegistrationICP_PointCloudLibrary ${SOURCE_FILE_LIST} ${HEADER_FILE_LIST})
+target_link_libraries(RegistrationICP_PointCloudLibrary pcl_registration_debug pcl_kdtree_debug pcl_common_debug pcl_search_debug)
