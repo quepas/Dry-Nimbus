@@ -26,3 +26,21 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.opensdf
+*.sdf
+*.sln
+*.suo
+BodyOfYoursApp.dir/
+Debug/
+Win32/
+ipch/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
