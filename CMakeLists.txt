@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.8)
 project (Dry-Nimbus)
 
-## !! set this paths
+## !! set this paths 	
 set(BOOST_INC "D:/Programowanie/Biblioteki/boost_1.50_msvc2010_x86/include")
 set(BOOST_LIB "D:/Programowanie/Biblioteki/boost_1.50_msvc2010_x86/lib")
 set(EIGEN_INC "D:/Programowanie/Biblioteki/Tidy/Eigen/include")
