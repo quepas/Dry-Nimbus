@@ -44,7 +44,7 @@ int main (int argc, char** argv)
   std::cout << icp.getFinalTransformation() << std::endl;
 
   // display point clouds after registration
-  PointCloudColorHandlerCustom<PointXYZ> base_aligned_color (cloud_base_aligned, 255, 0, 0);
+  PointCloudColorHandlerCustom<PointXYZ> base_aligned_color (cloud_base_aligned, 0, 0, 255);
   viewer = new PCLVisualizer("Point clouds AFTER registration");
   viewer->addPointCloud(cloud_target, target_color, "cloud_target");
   viewer->addPointCloud(cloud_base_aligned, base_aligned_color, "cloud_base_aligned");
