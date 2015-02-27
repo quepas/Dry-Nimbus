@@ -49,4 +49,6 @@ int main (int argc, char** argv)
   viewer->addPointCloud(cloud_target, target_color, "cloud_target");
   viewer->addPointCloud(cloud_base_aligned, base_aligned_color, "cloud_base_aligned");
   while (!viewer->wasStopped ()) { viewer->spinOnce (100); }
+  viewer->close();
+  delete viewer;
 }
