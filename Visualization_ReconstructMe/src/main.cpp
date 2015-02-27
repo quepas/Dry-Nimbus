@@ -68,9 +68,6 @@ int main () {
   reme_viewer_add_image(context, viewer, image_depth);
 
   while (REME_SUCCESS(reme_sensor_grab(context, sensor))) {
-    if (REME_SUCCESS(reme_sensor_track_position(context, sensor))) {
-      reme_sensor_update_volume(context, sensor);
-    }
     reme_sensor_prepare_images(context, sensor);
     reme_sensor_get_image(context, sensor, REME_IMAGE_AUX, image_aux);
     reme_sensor_get_image(context, sensor, REME_IMAGE_DEPTH, image_depth);
