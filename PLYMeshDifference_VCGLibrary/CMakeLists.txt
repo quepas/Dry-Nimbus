@@ -1,8 +1,8 @@
 file (GLOB SOURCE_FILE_LIST src/*.cpp)
 file (GLOB HEADER_FILE_LIST src/*.h)
 
-include_directories(${VCG_INC} ${VCG_WRAP_INC})
-#link_directories(${BOOST_LIB} ${PCL_LIB} ${FLANN_LIB})
+set (VCG_SOURCE "${VCG_WRAP_INC}/wrap/ply/plylib.cpp")
 
-add_executable(PLYMeshDifference_VCGLibrary ${SOURCE_FILE_LIST} ${HEADER_FILE_LIST})
-#target_link_libraries(PLYMeshDifference_VCGLibrary)
+include_directories(${VCG_INC} ${VCG_WRAP_INC})
+
+add_executable(PLYMeshDifference_VCGLibrary ${SOURCE_FILE_LIST} ${HEADER_FILE_LIST} ${VCG_SOURCE})
