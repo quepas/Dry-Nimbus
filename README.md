@@ -1,4 +1,4 @@
 Dry-Nimbus
 ==========
 
-Point clouds, 3d scanning and more.
+Point clouds, meshes, 3d scanning and more.
