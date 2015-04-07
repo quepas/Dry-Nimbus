@@ -35,7 +35,9 @@ int main()
   int flags = vcg::SamplingFlags::VERTEX_SAMPLING |
               vcg::SamplingFlags::EDGE_SAMPLING |
               vcg::SamplingFlags::FACE_SAMPLING |
-              vcg::SamplingFlags::SIMILAR_SAMPLING;
+              vcg::SamplingFlags::SIMILAR_SAMPLING |
+              vcg::SamplingFlags::SAVE_ERROR |
+              vcg::SamplingFlags::USE_STATIC_GRID;
 
   // open meshes
   if (!LoadMesh(filenameA, meshA) || !LoadMesh(filenameB, meshB)) {
@@ -62,8 +64,17 @@ int main()
 
   vcg::Sampling<CMesh> ForwardSampling(meshA, meshB);
   ForwardSampling.SetFlags(flags);
-  ForwardSampling.SetSamplesTarget(n_samples_target);
+  ForwardSampling.SetSamplesPerAreaUnit(1.0f);
   ForwardSampling.Hausdorff();
 
-  std::cout << "Test: " << ForwardSampling.GetDistMax() << std::endl;
+  // save diff file
+  vcg::tri::io::PlyInfo p;
+  p.mask|=vcg::tri::io::Mask::IOM_VERTCOLOR | vcg::tri::io::Mask::IOM_VERTQUALITY /* | vcg::ply::PLYMask::PM_VERTQUALITY*/ ;
+  //p.mask|=vcg::ply::PLYMask::PM_VERTCOLOR|vcg::ply::PLYMask::PM_VERTQUALITY;
+  if(ColorMax != 0 || ColorMin != 0){
+    vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(meshA, ColorMin, ColorMax);
+  }
+  vcg::tri::io::ExporterPLY<CMesh>::Save(meshA, "../data/output.ply", false, p);
+
+  std::cout << "DistMax: " << ForwardSampling.GetDistMax() << std::endl;
 }
